@@ -18,8 +18,8 @@ const Beer = () => {
     return (
         <div className="food-beer-list food-shop">
 
-            <h1>Tipos de Cerveja</h1>
-            <button onClick={toggleBeer}>Buscar Cerveja</button>
+            <h1>Beer List</h1>
+            <button onClick={toggleBeer}>Show beers</button>
             <div className="beers-list">
                 {showBeer && beer !== undefined && beer.map((item: IBeer) =>
                     <div className="beer" key={item.id}>

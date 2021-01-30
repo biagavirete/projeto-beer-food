@@ -27,8 +27,8 @@ const Foods = () => {
         <div className="food-beer-list food-shop">
             <h1>Meal Guide</h1>
             <p>
-                Select a category ou type meal name:
-        <input type="text" placeholder="Type meal name" onChange={(e) => setProvidedFood(e.target.value)} />
+                Select a category or type meal/ingredient name:
+        <input type="text" placeholder="Type meal/ingredient name" onChange={(e) => setProvidedFood(e.target.value)} />
             </p>
             <ul>
                 {categoriesList !== undefined && categoriesList.categories.map((item: ICategoryItem) => (
@@ -36,10 +36,10 @@ const Foods = () => {
                 ))}
             </ul>
 
-            <h2>Selected category: <strong>{selectedCategory}</strong></h2>
+            {selectedCategory && <h2>Selected category: <strong>{selectedCategory}</strong></h2>}
 
             <div className="food-container">
-                {food?.meals !== undefined && food.meals !== null && food.meals.map((item: IFoodItem) => (
+                {food !== undefined && food.meals?.map((item: IFoodItem) => (
                     <div className="food-item">
                         <li key={item.idMeal}>
                             <img src={item.strMealThumb} alt={item.strMeal} />
