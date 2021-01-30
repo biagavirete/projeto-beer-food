@@ -18,6 +18,7 @@ export interface ICategoryItem {
 export interface IFood {
     meals: IFoodItem[];
 }
+
 export interface IFoodItem {
     idMeal: string;
     strMeal: string;

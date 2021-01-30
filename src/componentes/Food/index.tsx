@@ -4,7 +4,7 @@ import { ICategory, ICategoryItem, IFood, IFoodItem } from '../../types';
 
 const Foods = () => {
     const [categoriesList, setCategoriesList] = useState<ICategory>();
-    const [selectedCategory, setSelectedCategory] = useState<any>();
+    const [selectedCategory, setSelectedCategory] = useState<String>('');
     const [food, setFood] = useState<IFood>();
     const [providedFood, setProvidedFood] = useState<String>('');
 
@@ -39,16 +39,12 @@ const Foods = () => {
             <h2>Selected category: <strong>{selectedCategory}</strong></h2>
 
             <div className="food-container">
-
-
                 {food?.meals !== undefined && food.meals !== null && food.meals.map((item: IFoodItem) => (
                     <div className="food-item">
-                        <>
-                            <li key={item.idMeal}>
-                                <img src={item.strMealThumb} />
-                                <p>{item.strMeal}</p>
-                            </li>
-                        </>
+                        <li key={item.idMeal}>
+                            <img src={item.strMealThumb} alt={item.strMeal} />
+                            <p>{item.strMeal}</p>
+                        </li>
                     </div>
                 ))}
             </div>

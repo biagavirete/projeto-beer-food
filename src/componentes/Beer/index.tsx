@@ -23,7 +23,7 @@ const Beer = () => {
             <div className="beers-list">
                 {showBeer && beer !== undefined && beer.map((item: IBeer) =>
                     <div className="beer" key={item.id}>
-                        <img src={item.image_url} alt="Buzz" />
+                        <img src={item.image_url} alt={item.name} />
                         <h3>{item.name}</h3>
                         <span>{item.tagline}</span>
                         <small>{item.description}</small>
