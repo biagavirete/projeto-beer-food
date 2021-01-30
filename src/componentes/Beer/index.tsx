@@ -1,37 +1,34 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { IBeer } from '../../types';
 
 const Beer = () => {
+    const [showBeer, setShowBeer] = useState<boolean>(false);
+    const [beer, setBeer] = useState<IBeer[]>([]);
+
+    useEffect(() => {
+        axios.get('https://api.punkapi.com/v2/beers/?per_page=8')
+            .then(response => setBeer(response.data));
+    }, [])
+
+    function toggleBeer() {
+        setShowBeer(!showBeer);
+    }
 
     return (
         <div className="food-beer-list food-shop">
 
             <h1>Tipos de Cerveja</h1>
-            <button>Buscar Cerveja</button>
+            <button onClick={toggleBeer}>Buscar Cerveja</button>
             <div className="beers-list">
-                <div className="beer">
-                    <img src="https://images.punkapi.com/v2/2.png" alt="Buzz" />
-                    <h3>Nome da cerveja</h3>
-                    <span>Minha tagline maneirona</span>
-                    <small>Descriçao A light, crisp and bitter IPA brewed with English and American hops. A small batch brewed only once.</small>
-                </div>
-                <div className="beer">
-                    <img src="https://images.punkapi.com/v2/2.png" alt="Buzz" />
-                    <h3>Nome da cerveja</h3>
-                    <span>Minha tagline maneirona</span>
-                    <small>Descriçao A light, crisp and bitter IPA brewed with English and American hops. A small batch brewed only once.</small>
-                </div>
-                <div className="beer">
-                    <img src="https://images.punkapi.com/v2/2.png" alt="Buzz" />
-                    <h3>Nome da cerveja</h3>
-                    <span>Minha tagline maneirona</span>
-                    <small>Descriçao A light, crisp and bitter IPA brewed with English and American hops. A small batch brewed only once.</small>
-                </div>
-                <div className="beer">
-                    <img src="https://images.punkapi.com/v2/2.png" alt="Buzz" />
-                    <h3>Nome da cerveja</h3>
-                    <span>Minha tagline maneirona</span>
-                    <small>Descriçao A light, crisp and bitter IPA brewed with English and American hops. A small batch brewed only once.</small>
-                </div>
+                {showBeer && beer !== undefined && beer.map((item: IBeer) =>
+                    <div className="beer" key={item.id}>
+                        <img src={item.image_url} alt="Buzz" />
+                        <h3>{item.name}</h3>
+                        <span>{item.tagline}</span>
+                        <small>{item.description}</small>
+                    </div>
+                )}
             </div>
         </div>
     );
