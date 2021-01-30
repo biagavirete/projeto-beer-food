@@ -1,23 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { ICategory, ICategoryItem } from '../../types';
+import { ICategory, ICategoryItem, IFood, IFoodItem } from '../../types';
 
 const Foods = () => {
     const [categoriesList, setCategoriesList] = useState<ICategory>();
     const [selectedCategory, setSelectedCategory] = useState<any>();
+    const [food, setFood] = useState<IFood>();
+    const [providedFood, setProvidedFood] = useState<String>('');
 
     useEffect(() => {
         axios.get('https://www.themealdb.com/api/json/v1/1/categories.php')
             .then(response => setCategoriesList(response.data))
-    }, [])
-    console.log('categorias', categoriesList?.categories)
+    }, []);
+
+    useEffect(() => {
+        axios.get(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${selectedCategory}`)
+            .then(response => setFood(response.data))
+    }, [selectedCategory]);
+
+    useEffect(() => {
+        axios.get(`https://www.themealdb.com/api/json/v1/1/search.php?s=${providedFood}`)
+            .then(resposta => setFood(resposta.data))
+    }, [providedFood]);
 
     return (
         <div className="food-beer-list food-shop">
-            <h1>Food Guide</h1>
+            <h1>Meal Guide</h1>
             <p>
-                Select a category ou type food name:
-        <input type="text" placeholder="Type food name" />
+                Select a category ou type meal name:
+        <input type="text" placeholder="Type meal name" onChange={(e) => setProvidedFood(e.target.value)} />
             </p>
             <ul>
                 {categoriesList !== undefined && categoriesList.categories.map((item: ICategoryItem) => (
@@ -25,29 +36,21 @@ const Foods = () => {
                 ))}
             </ul>
 
-            <h2>Tipo selecionado: <strong>{selectedCategory}</strong></h2>
+            <h2>Selected category: <strong>{selectedCategory}</strong></h2>
 
             <div className="food-container">
-                <div className="food-item">
-                    <img src="https://www.themealdb.com/images/media/meals/8x09hy1560460923.jpg" />
-                    <p>Nome da comidinha</p>
-                </div>
-                <div className="food-item">
-                    <img src="https://www.themealdb.com/images/media/meals/8x09hy1560460923.jpg" />
-                    <p>Nome da comidinha</p>
-                </div>
-                <div className="food-item">
-                    <img src="https://www.themealdb.com/images/media/meals/8x09hy1560460923.jpg" />
-                    <p>Nome da comidinha</p>
-                </div>
-                <div className="food-item">
-                    <img src="https://www.themealdb.com/images/media/meals/8x09hy1560460923.jpg" />
-                    <p>Nome da comidinha</p>
-                </div>
-                <div className="food-item">
-                    <img src="https://www.themealdb.com/images/media/meals/8x09hy1560460923.jpg" />
-                    <p>Nome da comidinha</p>
-                </div>
+
+
+                {food?.meals !== undefined && food.meals !== null && food.meals.map((item: IFoodItem) => (
+                    <div className="food-item">
+                        <>
+                            <li key={item.idMeal}>
+                                <img src={item.strMealThumb} />
+                                <p>{item.strMeal}</p>
+                            </li>
+                        </>
+                    </div>
+                ))}
             </div>
         </div>
     );

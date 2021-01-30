@@ -14,3 +14,12 @@ export interface ICategoryItem {
     idCategory: string;
     strCategory: string;
 }
+
+export interface IFood {
+    meals: IFoodItem[];
+}
+export interface IFoodItem {
+    idMeal: string;
+    strMeal: string;
+    strMealThumb: string;
+}
