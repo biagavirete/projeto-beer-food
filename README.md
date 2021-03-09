@@ -1,25 +1,25 @@
-# Projeto Beer & Food
+# Beer & Food
 
-Projeto React utilizando Typescript desenvolvido na trilha React do Campinas Tech Talents.
+React project using TypeScript developed during Campinas Tech Talents bootcamp.
 
-## Como usar
+## Getting started
 
-**Para instalar**
-> Clonar o repositório
+**Installing**
+>Cloning the repository
 
 ```bash
 $ git clone https://github.com/biagavirete/projeto-beer-food.git
 $ cd projeto-beer-food
 ```
 
-**Para rodar**
-> Instalar dependências
+**Running**
+> Installing dependencies
 
 ```bash
 $ npm install
 ```
 
-> Iniciar o React
+> Running React
 
 ```bash
 $  npm start
